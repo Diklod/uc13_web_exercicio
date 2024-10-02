@@ -1,0 +1,108 @@
+﻿@section Scripts {
+    <script src="~/js/adicionarJogo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
+
+@* Declaração do model passado no link da edição (declara com minúscula mas utiliza com maiúscula) *@
+@model uc13_web_exercicio.Models.Jogo;
+
+@{
+    int id = 0;
+    string nome = string.Empty;
+    string genero = string.Empty;
+    string classificacao = string.Empty;
+    string idiomas = string.Empty;
+    float preco = 0;
+    int multiplayer = 1;
+    string configMinimina = string.Empty;
+    string configRecomendada = string.Empty;
+    string resumo = string.Empty;
+    string operation = "add";
+
+    @* Verifica se o model é válido para edição inclusive adapta a operação de salvar conforme os dados *@
+    if (Model != null && Model.Id > 0)
+    {
+        id = Model.Id;
+        nome = Model.Nome;
+        genero = Model.Genero;
+        classificacao = Model.Classificacao;
+        idiomas = Model.Classificacao;
+        preco = Model.Preco;
+
+        if(Model.Multiplayer == true)
+        {
+            multiplayer = 1;
+        }else
+        {
+            multiplayer = 2;
+        }
+        configMinimina = Model.ConfigMinimina;
+        configRecomendada = Model.ConfigRecomendada;
+        resumo = Model.Resumo;
+        operation = "upd";
+    }
+}
+
+<h4 class="display">Adicionar/Editar Jogo</h4>
+
+<form id="frmJogo" class="mb-4">
+    <div class="mb-3">
+        <label for="txtNome" class="form-label">Nome do Jogo</label>
+        <input id="txtNome" type="text" value="@nome" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="txtGenero" class="form-label">Gênero</label>
+        <input id="txtGenero" type="text" value="@genero" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="txtClassificacao" class="form-label">Classificação</label>
+        <input id="txtClassificacao" type="text" value="@classificacao" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="txtIdiomas" class="form-label">Idiomas Disponibilizados</label>
+        <input id="txtIdiomas" type="text" value="@idiomas" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="numPreco" class="form-label">Preço</label>
+        <input id="numPreco" class="form-control" type="text" value="@preco" placeholder="R$0,00" oninput="mascaraMoeda(this)">
+    </div>
+    <div class="mb-3">
+
+        @{
+            if (multiplayer == 1)
+            {
+                <label for="selectMultiplayer" class="form-label">Multiplayer?</label>
+                <select id="selectMultiplayer" class="form-select">
+                    <option value="1" selected>Sim</option>
+                    <option value="2">Não</option>
+                </select>
+            }
+            else
+            {
+                <label for="selectMultiplayer" class="form-label">Multiplayer?</label>
+                <select id="selectMultiplayer" class="form-select">
+                    <option value="1">Sim</option>
+                    <option value="2" selected>Não</option>
+                </select>
+            }
+        }
+
+        
+    </div>
+    <div class="mb-3">
+        <label for="txtConfigMin" class="form-label">Configuração Mínima</label>
+        <input id="txtConfigMin" type="text" value="@configMinimina" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="txtConfigRecomendada" class="form-label">Configuração Recomendada</label>
+        <input id="txtConfigRecomendada" type="text" value="@configRecomendada" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="txtResumo" class="form-label">Resumo</label>
+        <input id="txtResumo" type="text" value="@resumo" class="form-control">
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-secondary" href="@Url.Action("JogosCadastrados","Home")">Cancelar</a>
+        <button id="btnSave" type="submit" operation="@operation" itemid="@id" value="" class="btn btn-success">Salvar</button>
+    </div>
+</form>

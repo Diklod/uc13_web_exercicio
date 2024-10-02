@@ -1,0 +1,33 @@
+﻿@section Styles{
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css" />
+}
+
+@section Scripts{
+    <script src="~/js/jogosCadastrados.js"></script>
+    <script src="//cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
+<h4 class="mb-4">Lista de Jogos</h4>
+
+<div class="" style="text-align:right;">
+    <a class="btn btn-primary" href="@Url.Action("AdicionarJogo","Home")">Adicionar</a>
+</div>
+
+<hr class="mb-3" />
+<table id="tbGames" class="table table-light-pink table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Gênero</th>
+            <th>Classificacao</th>
+            <th>Idiomas</th>
+            <th>Preco</th>
+            <th>Multiplayer</th>
+            <th>Configuração Mínimina</th>
+            <th>Configuração Recomendada</th>
+            <th>Resumo</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
